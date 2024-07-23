@@ -1,0 +1,58 @@
+/* Reset dei margini e dei padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Stile del body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: rgb(5, 5, 80);
+}
+
+/* Stile dell'header */
+header {
+  background-color: rgb(5, 5, 80);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+/* Stile delle sezioni */
+section {
+  padding: 40px;
+  background-color: #fff;
+  margin: 0 20px 20px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+section p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Stile del footer */
+footer {
+  background-color: rgb(5, 5, 80);
+  padding: 20px;
+  text-align: center;
+}
+
+footer p {
+  color: #fff;
+  font-size: 14px;
+}
