@@ -33,7 +33,7 @@ def hello_world():
    
     # Plotting the number of missions per organization
     missions_per_org = data['Organisation'].value_counts()
-    organisation = px.bar(missions_per_org, x=missions_per_org.index, y=missions_per_org.values, title='Number of Missions per Organization')
+    organisation = px.bar(missions_per_org, x=missions_per_org.index, y=missions_per_org.values)
     organisation.update_layout(
         xaxis_title='Organization',
         yaxis_title='Number of Missions (Log Scale)',
@@ -41,8 +41,15 @@ def hello_world():
     )
     organisation_html = organisation.to_html(full_html=False)
 
+    # Plotting the number of succesful mission vs unsuccessful missions
+    status = data['Mission_Status'].value_counts()
+    status = status.reindex(['Success', 'Failure', 'Partial Failure', 'Prelaunch Failure'])
+    status = px.pie(status, values=status.values, names=status.index, hole=0.8)
+    status.update_traces(textposition='outside', textinfo='percent+label')
+    status_html = status.to_html(full_html=False)
 
-    return render_template('index.html', shape=shape, head=head, trend=trend_html, organisation=organisation_html)    
+
+    return render_template('index.html', shape=shape, head=head, trend=trend_html, organisation=organisation_html, status=status_html)    
 
 
 if __name__ == '__main__':
