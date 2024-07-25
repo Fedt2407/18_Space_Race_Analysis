@@ -48,8 +48,32 @@ def hello_world():
     status.update_traces(textposition='outside', textinfo='percent+label')
     status_html = status.to_html(full_html=False)
 
+    # Plotting price per year
+    data['Date'] = pd.to_datetime(data['Date'], errors='coerce', infer_datetime_format=True)
+    data['Year'] = data['Date'].dt.year
+    # Remove rows with missing Price
+    data = data.dropna(subset=['Price'])
+    # Convert the Price column to float
+    data['Price'] = data['Price'].str.replace(',', '').astype(float)
+    price_per_year = data.groupby('Year')['Price'].sum()
+    price_per_year_rolling = price_per_year.rolling(window=5).mean()  # Calculate 5-year rolling average
+    price_plot = px.bar(price_per_year, x=price_per_year.index, y=price_per_year.values,
+                        labels={'x': 'Year', 'y': 'Total Spending'})
+    price_plot.add_scatter(x=price_per_year.index, y=price_per_year_rolling.values, 
+                           mode='lines', name='5-Year Rolling Average', line=dict(width=3))  # Add rolling average line with line width of 3
+    price_plot.update_layout(xaxis_title='Year', yaxis_title='Total Spending in USD milions')
+    price_plot.update_layout(legend=dict(x=0, y=1))  # Move legend to top left
+    price_plot_html = price_plot.to_html(full_html=False)
 
-    return render_template('index.html', shape=shape, head=head, trend=trend_html, organisation=organisation_html, status=status_html)    
+
+    return render_template('index.html', 
+                           shape=shape, 
+                           head=head, 
+                           trend=trend_html, 
+                           organisation=organisation_html, 
+                           status=status_html,
+                           price_per_year=price_plot_html
+                           )    
 
 
 if __name__ == '__main__':
