@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Space Race Analysis</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Analysis of space race data">
-    <meta name="keywords" content="space, race, analysis">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Analysis of space race data" />
+    <meta name="keywords" content="space, race, analysis" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
   </head>
   <body>
     <header>
@@ -16,7 +18,13 @@
 
     <section>
       <h2>Data structure</h2>
-      <p>Mission lauch database base has {{shape[1]}} and {{shape[0]}} rows.</p>
+      <p>
+        Mission lauch database base has {{shape[1]}} and {{shape[0]}} rows.
+        Excludin the index data return organization, location and date of the
+        launch, detail, price, rocket and mission status.
+      </p>
+      <br />
+      <div class="table-responsive">{{ head | safe }}</div>
     </section>
 
     <section>
@@ -30,9 +38,9 @@
     </section>
 
     <section>
-        <h2>Titolo della sezione 4</h2>
-        <p>Contenuto della sezione 4</p>
-      </section>
+      <h2>Titolo della sezione 4</h2>
+      <p>Contenuto della sezione 4</p>
+    </section>
 
     <footer>
       <p>©2024 Space Race Analysus. All rights reserved.</p>

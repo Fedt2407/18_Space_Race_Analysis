@@ -12,7 +12,8 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_APP_KEY')
 def hello_world():
     data = pd.read_csv('./static/mission_launches.csv', index_col=0)
     shape = data.shape
-    return render_template('index.html', shape=shape)    
+    head = data.head().iloc[:, 1:].to_html(classes='dataframe', index=False)
+    return render_template('index.html', shape=shape, head=head)    
 
 
 if __name__ == '__main__':
