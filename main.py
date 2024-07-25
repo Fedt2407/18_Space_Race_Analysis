@@ -14,6 +14,8 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_APP_KEY')
 @app.route('/')
 def hello_world():
     data = pd.read_csv('./static/mission_launches.csv', index_col=0)
+
+    # Data structure and head
     shape = data.shape
     head = data.head().iloc[:, 1:].to_html(classes='dataframe', index=False)
 
@@ -29,7 +31,18 @@ def hello_world():
     trend.update_yaxes(range=[0, 120])
     trend_html = trend.to_html(full_html=False)
    
-    return render_template('index.html', shape=shape, head=head, trend=trend_html)    
+    # Plotting the number of missions per organization
+    missions_per_org = data['Organisation'].value_counts()
+    organisation = px.bar(missions_per_org, x=missions_per_org.index, y=missions_per_org.values, title='Number of Missions per Organization')
+    organisation.update_layout(
+        xaxis_title='Organization',
+        yaxis_title='Number of Missions (Log Scale)',
+        yaxis=dict(type='log')
+    )
+    organisation_html = organisation.to_html(full_html=False)
+
+
+    return render_template('index.html', shape=shape, head=head, trend=trend_html, organisation=organisation_html)    
 
 
 if __name__ == '__main__':
