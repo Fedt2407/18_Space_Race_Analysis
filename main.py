@@ -29,6 +29,7 @@ def hello_world():
     trend = px.line(missions_per_year, x=missions_per_year.index, y=missions_per_year.values)
     trend.update_layout(xaxis_title='Year', yaxis_title='Number of Missions')
     trend.update_yaxes(range=[0, 120])
+    trend.update_traces(line=dict(width=3))
     trend_html = trend.to_html(full_html=False)
    
     # Plotting the number of missions per organization
