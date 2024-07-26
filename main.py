@@ -65,6 +65,14 @@ def hello_world():
     price_plot.update_layout(legend=dict(x=0, y=1))  # Move legend to top left
     price_plot_html = price_plot.to_html(full_html=False)
 
+    # Plotting the budget per organisation
+    budget_per_org = data.groupby('Organisation')['Price'].sum()
+    budget_per_org = budget_per_org.sort_values(ascending=False)
+    budget_per_org = px.bar(budget_per_org, x=budget_per_org.index, y=budget_per_org.values)
+    budget_per_org.update_layout(xaxis_title='Organization', yaxis_title='Total Spending in USD milions (Log Scale)', yaxis=dict(type='log'))
+    budget_per_org.update_layout(legend=dict(x=0, y=1))
+    budget_per_org_html = budget_per_org.to_html(full_html=False)
+
 
     return render_template('index.html', 
                            shape=shape, 
@@ -72,7 +80,8 @@ def hello_world():
                            trend=trend_html, 
                            organisation=organisation_html, 
                            status=status_html,
-                           price_per_year=price_plot_html
+                           price_per_year=price_plot_html,
+                           budget_per_org=budget_per_org_html
                            )    
 
 

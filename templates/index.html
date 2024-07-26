@@ -21,7 +21,8 @@
       <p>
         Mission lauch database base has {{shape[1]}} and {{shape[0]}} rows.
         Excludin the index data return organization, location and date of the
-        launch, detail, price, rocket and mission status.
+        launch, detail, price, rocket and mission status.<br />
+        Below the data sample.
       </p>
       <br />
       <div class="table-responsive">{{ head | safe }}</div>
@@ -68,6 +69,17 @@
       </p>
       <br />
       <div>{{ price_per_year | safe }}</div>
+    </section>
+
+    <section>
+      <h2>Budget spent by Organization</h2>
+      <p>
+        Average spending has gradually increased from 1 to 4.5 billion dollars
+        per year. Probably due to the cold war some data are missing from 1975
+        to 1980.
+      </p>
+      <br />
+      <div>{{ budget_per_org | safe }}</div>
     </section>
 
     <footer>
