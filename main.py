@@ -80,16 +80,6 @@ def hello_world():
     rocket_status.update_traces(textposition='outside', textinfo='percent+label')
     rocket_status_html = rocket_status.to_html(full_html=False)
 
-    # Plotting rocket status per year in two lines
-    rocket_status_year = data.groupby(['Year', 'Rocket_Status']).size().unstack().fillna(0)
-    rocket_status_year = rocket_status_year.div(rocket_status_year.sum(axis=1), axis=0)
-    rocket_status_year = rocket_status_year.rolling(window=5).mean()
-    rocket_status_year_plot = px.line(rocket_status_year, x=rocket_status_year.index, y=rocket_status_year.columns)
-    rocket_status_year_plot.update_layout(xaxis_title='Year', yaxis_title='Percentage of Missions')
-    rocket_status_year_plot.update_layout(legend=dict(x=0, y=1))
-    rocket_status_year_plot.update_traces(line=dict(width=3))
-    rocket_status_year_plot_html = rocket_status_year_plot.to_html(full_html=False)
-
 
     return render_template('index.html', 
                            shape=shape, 
@@ -99,8 +89,7 @@ def hello_world():
                            status=status_html,
                            price_per_year=price_plot_html,
                            budget_per_org=budget_per_org_html,
-                           rocket_status=rocket_status_html,
-                           rocket_status_year=rocket_status_year_plot_html
+                           rocket_status=rocket_status_html
                            )    
 
 
